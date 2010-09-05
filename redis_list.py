@@ -28,9 +28,13 @@ class RedisList(object):
         else:
             return self._client.rpush(self.list_key, val)
 
-    def pop(self, head=False):
-        if head:
+    def pop(self, head=False, blocking=False):
+        if head and blocking:
+            return self._client.blpop(self.list_key)[1]
+        elif head:
             return self._client.lpop(self.list_key)
+        elif blocking:
+            return self._client.brpop(self.list_key)[1]
         else:
             return self._client.rpop(self.list_key)
 
