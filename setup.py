@@ -15,7 +15,7 @@ setup(name='redis_ds',
       author_email='lethain@gmail.com',
       url='http://github.com/lethain/Redis-Python-Datastructures',
       packages=['redis_ds'],
-      package_dir={'redis_ds': 'src/Redis-Python-Datastructures'},
+      package_dir={'redis_ds': 'src/redis_ds'},
       include_package_data=True,
       requires=(
         'redis'
