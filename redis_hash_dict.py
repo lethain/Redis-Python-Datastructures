@@ -25,7 +25,7 @@ class RedisHashDict(UserDict.DictMixin):
     def __delitem__(self, key):
         return self._client.hdel(self.hash_key, key)
 
-    def __contains__(self):
+    def __contains__(self, key):
         return self._client.hexists(self.hash_key, key)
 
     def get(self, key, default=None):
