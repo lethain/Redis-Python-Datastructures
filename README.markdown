@@ -13,8 +13,10 @@ Utimately, a trivial wrapper around [Redis-Py][redis-py].
 
 ## Simple Installation
 
-   Ho hum. Having some setup.py issues I will have to resolve in a moment.
+The simplest approach to installation is:
 
+    pip install redis
+    pip install -r git+https://github.com/lethain/Redis-Python-Datastructures.git
 
 ## Installation for development
 
@@ -31,7 +33,7 @@ and install it into a [virtualenv](http://www.virtualenv.org/en/latest/):
 
     # install it
     pip install -r requirements.txt
-    python setup.py install
+    python setup.py develop
 
 
 ## Running tests
@@ -124,7 +126,7 @@ Woohoo.
 
 ## Sets
 
-Sets are also available thanks to work by [@hhuuggoo])https://github.com/hhuuggoo):
+Sets are also available thanks to work by [@hhuuggoo](https://github.com/hhuuggoo):
 
     >>> from redis_ds.redis_set import RedisSet
     >>> x = RedisSet()

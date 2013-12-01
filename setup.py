@@ -1,23 +1,19 @@
 #!/usr/bin/env python
-
 try:
     from setuptools import setup, find_packages
 except ImportError:
     from ez_setup import use_setuptools
     use_setuptools()
     from setuptools import setup, find_packages
-
+import redis_ds
 
 setup(name='redis_ds',
-      version='1.0',
+      version=redis_ds.__version__,
       description='simple python datastructure wrappings for redis',
       author='Will Larson',
       author_email='lethain@gmail.com',
       url='http://github.com/lethain/Redis-Python-Datastructures',
-      packages=['redis_ds'],
-      package_dir={'redis_ds': 'src/redis_ds'},
+      packages=find_packages(),
       include_package_data=True,
-      requires=(
-        'redis'
-        )
+      zip_safe=False,
      )
