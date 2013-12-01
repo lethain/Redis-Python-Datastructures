@@ -16,7 +16,7 @@ Utimately, a trivial wrapper around [Redis-Py][redis-py].
 The simplest approach to installation is:
 
     pip install redis
-    pip install -r git+https://github.com/lethain/Redis-Python-Datastructures.git
+    pip install -e git+https://github.com/lethain/Redis-Python-Datastructures.git#egg=redis_ds
 
 ## Installation for development
 
