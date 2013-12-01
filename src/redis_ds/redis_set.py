@@ -20,9 +20,13 @@ class RedisSet(PassThroughSerializer):
         self._client.sadd(self.set_key, val)
         
     def update(self, vals):
-        "Idempotently Add multiple values to the set."
+        "Idempotently add multiple values to the set."
         vals = [self.serialize(x) for x in vals]
         self._client.sadd(self.set_key, *vals)
+
+    def __contains__(self, val):
+        "Check if a value is a member of a set."
+        return self._client.sismember(self.set_key, val)
         
     def pop(self):
         "Remove and return a value from the set."

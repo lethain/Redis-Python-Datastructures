@@ -17,12 +17,12 @@ class RedisList(PassThroughSerializer):
     def __getitem__(self, key):
         "Retrieve a value by index or values by slice syntax."
         if type(key) == int:
-            self.deserialize(self._client.lindex(self.list_key, key))
+            return self.deserialize(self._client.lindex(self.list_key, key))
         elif hasattr(key, 'start') and hasattr(key, 'stop'):
             start = key.start or 0
             stop = key.stop or -1
-            return self.deserialize(
-                self._client.lrange(self.list_key, start, stop))
+            values = self._client.lrange(self.list_key, start, stop)
+            return [self.deserialize(value) for value in values]
         else:
             raise IndexError
 

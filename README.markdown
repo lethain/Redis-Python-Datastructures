@@ -1,6 +1,8 @@
 [redis]: http://code.google.com/p/redis/ "Redis"
 [redis-py]: http://github.com/andymccurdy/redis-py "Redis-Py"
 
+*If you'd like to be a contributor, send me a note! I'd be more than glad to pass this over to a more active maintainer.*
+
 This package exposes [Redis][redis] backed datastructures which bring together
 standard Python syntax with persistent in-memory storage. Redis operations
 are all atomic as well, meaning that a thoughtful approach can use them
@@ -30,6 +32,22 @@ and install it into a [virtualenv](http://www.virtualenv.org/en/latest/):
     # install it
     pip install -r requirements.txt
     python setup.py install
+
+
+## Running tests
+
+With some embarassment, the tests currently run against local Redis using keys
+prefixed with "test_rds.", and taking great pains not to delete any other keys,
+so if you have a toy Redis node, the tests will not cause any harm, but you really
+shouldn't run the tests against a Redis node you care deeply about.
+
+Run them via:
+
+    python src/redis_ds/tests.py
+
+The tests really ought to be run against a mocked out version of Redis, but that
+
+work hasn't been done yet.
 
 
 # Usage
@@ -104,6 +122,27 @@ with workers.
     'a'
 
 Woohoo.
+
+## Sets
+
+Sets are also available thanks to work by [@hhuuggoo])https://github.com/hhuuggoo):
+
+    >>> from redis_ds.redis_set import RedisSet
+    >>> x = RedisSet()
+    >>> x.add("a")
+    >>> x.add("a")
+    >>> x.add("b")
+    >>> x.add("b")
+    >>> len(x)
+    2
+    >>> 'a' in x
+    True
+    >>> 'c' in x
+    False
+    >>> x.pop()
+    'a'
+    >>> len(x)
+    1
 
 
 ## Serializing Redis Values
