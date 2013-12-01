@@ -3,7 +3,7 @@ Module contains RedisHashDict, which allows users to interact with Redis hashes
 as if they were Python dictionaries.
 """
 import redis_ds.redis_config as redis_config
-from redis_ds.serialization import PassThroughSerializer, PickleSerializer
+from redis_ds.serialization import PassThroughSerializer, PickleSerializer, JSONSerializer
 import UserDict
 
 
@@ -46,4 +46,9 @@ class RedisHashDict(UserDict.DictMixin, PassThroughSerializer):
 
 class PickleRedisHashDict(RedisHashDict, PickleSerializer):
     "Serialize hashmap values using pickle."
+    pass
+
+
+class JSONRedisHashDict(RedisHashDict, JSONSerializer):
+    "Serialize hashmap values using JSON."
     pass

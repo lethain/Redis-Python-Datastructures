@@ -8,7 +8,7 @@ not a Redis hashmap. If you prefer an interface to a hashmap, the
 """
 import UserDict
 import redis_ds.redis_config as redis_config
-from redis_ds.serialization import PassThroughSerializer, PickleSerializer
+from redis_ds.serialization import PassThroughSerializer, PickleSerializer, JSONSerializer
 
 
 class RedisDict(UserDict.DictMixin, PassThroughSerializer):
@@ -54,4 +54,9 @@ class RedisDict(UserDict.DictMixin, PassThroughSerializer):
 
 class PickleRedisDict(RedisDict, PickleSerializer):
     "Serialize redis dictionary values via pickle."
+    pass
+
+
+class JSONRedisDict(RedisDict, JSONSerializer):
+    "Serialize redis dictionary values via JSON."
     pass

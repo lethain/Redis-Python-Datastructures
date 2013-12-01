@@ -1,6 +1,6 @@
 "A Pythonic interface to a Redis set."
 import redis_ds.redis_config as redis_config
-from redis_ds.serialization import PassThroughSerializer, PickleSerializer
+from redis_ds.serialization import PassThroughSerializer, PickleSerializer, JSONSerializer
 
 
 class RedisSet(PassThroughSerializer):
@@ -46,7 +46,13 @@ class RedisSet(PassThroughSerializer):
         "Represent all members in a set."
         return self.__unicode__()
 
+
 class PickleRedisSet(RedisSet, PickleSerializer):
     "Pickle values stored in set."
+    pass
+
+
+class JSONRedisSet(RedisSet, JSONSerializer):
+    "JSON values stored in set."
     pass
     

@@ -1,4 +1,5 @@
 "Mixins for serializing objects."
+import json
 import cPickle as pickle
 
 
@@ -21,4 +22,14 @@ class PickleSerializer(PassThroughSerializer):
     def deserialize(self, obj):
         "Deserialize values using pickle."
         return pickle.loads(obj)
+
+
+class JSONSerializer(PassThroughSerializer):
+    "Serialize values using JSON."
+    def serialize(self, obj):
+        return json.dumps(obj)
+
+    def deserialize(self, obj):
+        "Deserialize values using JSON."
+        return json.loads(obj)
 

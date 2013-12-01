@@ -1,6 +1,6 @@
 "A pythonic interface to a Redis dictionary."
 import redis_ds.redis_config as redis_config
-from redis_ds.serialization import PassThroughSerializer, PickleSerializer
+from redis_ds.serialization import PassThroughSerializer, PickleSerializer, JSONSerializer
 
 
 class RedisList(PassThroughSerializer):
@@ -61,4 +61,9 @@ class RedisList(PassThroughSerializer):
 
 class PickleRedisList(RedisList, PickleSerializer):
     "Serialize Redis List values via Pickle."
+    pass
+
+
+class JSONRedisList(RedisList, JSONSerializer):
+    "Serialize Redis List values via JSON."
     pass

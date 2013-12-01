@@ -1,9 +1,9 @@
 "Tests for redis datastructures."
 import unittest
-from redis_ds.redis_dict import RedisDict, PickleRedisDict
-from redis_ds.redis_hash_dict import RedisHashDict, PickleRedisHashDict
-from redis_ds.redis_list import RedisList, PickleRedisList
-from redis_ds.redis_set import RedisSet, PickleRedisSet
+from redis_ds.redis_dict import RedisDict, PickleRedisDict, JSONRedisDict
+from redis_ds.redis_hash_dict import RedisHashDict, PickleRedisHashDict, JSONRedisHashDict
+from redis_ds.redis_list import RedisList, PickleRedisList, JSONRedisList
+from redis_ds.redis_set import RedisSet, PickleRedisSet, JSONRedisSet
 
 
 class TestRedisDatastructures(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestRedisDatastructures(unittest.TestCase):
     def test_redis_dict(self):
         "Test the redis dict implementation."
         key = "%s.dict" % self.prefix
-        for class_impl in (RedisDict, PickleRedisDict):
+        for class_impl in (RedisDict, PickleRedisDict, JSONRedisDict):
             rd = class_impl()
             del rd[key]
             init_size = len(rd)
@@ -39,7 +39,7 @@ class TestRedisDatastructures(unittest.TestCase):
         rd = RedisDict()
         del rd[hash_key]
 
-        for class_impl in (RedisHashDict, PickleRedisHashDict):
+        for class_impl in (RedisHashDict, PickleRedisHashDict, JSONRedisHashDict):
             rhd = class_impl(hash_key)
             self.assertEqual(len(rhd), 0)
             self.assertFalse(key in rhd)
@@ -63,7 +63,7 @@ class TestRedisDatastructures(unittest.TestCase):
         rd = RedisDict()
         del rd[list_key]
 
-        for class_impl in (RedisList, PickleRedisList):
+        for class_impl in (RedisList, PickleRedisList, JSONRedisList):
             rl = class_impl(list_key)
             self.assertEqual(len(rl), 0)
             rl.append("a")            
@@ -84,7 +84,7 @@ class TestRedisDatastructures(unittest.TestCase):
         rd = RedisDict()
         del rd[set_key]
 
-        for class_impl in (RedisSet, PickleRedisSet):
+        for class_impl in (RedisSet, PickleRedisSet, JSONRedisSet):
             rs = class_impl(set_key)
             self.assertEquals(len(rs), 0)
             rs.add("a")

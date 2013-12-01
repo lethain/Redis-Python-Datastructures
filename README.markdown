@@ -27,7 +27,7 @@ and install it into a [virtualenv](http://www.virtualenv.org/en/latest/):
 
     # create and activate a virtualenv if you don't have one already
     virtualenv env
-    . ./
+    . ./activate
 
     # install it
     pip install -r requirements.txt
@@ -46,7 +46,6 @@ Run them via:
     python src/redis_ds/tests.py
 
 The tests really ought to be run against a mocked out version of Redis, but that
-
 work hasn't been done yet.
 
 
@@ -60,8 +59,8 @@ This section covers how to use this library to interface with Redis.
 Using the entire Redis cluster as a dictionary:
 
 
-    >>> from redis_ds import redis_dict
-    >>> x = redis_dict.RedisDict()
+    >>> from redis_ds.redis_dict import RedisDict
+    >>> x = RedisDict()
     >>> x
     {}
     >>> x['a'] = 100
@@ -78,8 +77,8 @@ Using the entire Redis cluster as a dictionary:
 Using Redis hashes we can store multiple dictionaries in
 one Redis server.
 
-    >>> from redis_ds import redis_hash_dict
-    >>> x = redis_hash_dict.RedisHashDict("some_hash_key")
+    >>> from redis_ds.redis_hash_dict import RedisHashDict
+    >>> x = RedisHashDict("some_hash_key")
     >>> x
     {}
     >>> x['a'] = 100
@@ -97,8 +96,8 @@ We also have a kind-of-sort-off implementation of a list which
 certainly doesn't have the full flexibility of a Python list,
 but is persistent, synchronized and sharable.
 
-    >>> from redis_ds import redis_list
-    >>> x = redis_list.RedisList("my-list")
+    >>> from redis_ds.redis_list import RedisList
+    >>> x = RedisList("my-list")
     >>> x
     RedisList([])
     >>> x.append("a")
@@ -145,14 +144,14 @@ Sets are also available thanks to work by [@hhuuggoo])https://github.com/hhuuggo
     1
 
 
-## Serializing Redis Values
+## Serializing Values Stored in Redis
 
 Thanks to work by [@hhuuggoo](https://github.com/hhuuggoo), this library also
 supports serializing values before storing them in Redis. Each class has a
 serialized equivalent, for example the above hashmap example becomes:
 
-    >>> from redis_ds import redis_hash_dict
-    >>> y = redis_hash_dict.PickleRedisHashDict('some_other_key')
+    >>> from redis_ds.redis_hash_dict import PickleRedisHashDict
+    >>> y = PickleRedisHashDict('some_other_key')
     >>> y
     {}
     >>> y['a'] = {'obj': 'ect'}
@@ -161,10 +160,9 @@ serialized equivalent, for example the above hashmap example becomes:
     >>> y['a']['obj']
     'ect'
 
-The only difference is that
+The same can be done using JSON instead of Pickle by changing it to:
 
-    >>> x = redis_dict.RedisDict()
+    >>> from redis_ds.redis_hash_dict import JSONRedisHashDict
 
-is now replaced with:
-
-    >>> x = redis_dict.PickleRedisHashDict()
+and so on. The same is true for ``RedisList`` which has ``PickleRedisList``
+and ``JSONRedisList``, and so on.
