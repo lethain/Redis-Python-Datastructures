@@ -8,16 +8,17 @@ not a Redis hashmap. If you prefer an interface to a hashmap, the
 """
 try:
     import UserDict
+    _DictMixin = UserDict.DictMixin
 except ImportError:
     from collections import UserDict
     from collections import MutableMapping as DictMixin
-    UserDict.DictMixin = DictMixin
+    _DictMixin = DictMixin
 
 import redis_ds.redis_config as redis_config
 from redis_ds.serialization import PassThroughSerializer, PickleSerializer, JSONSerializer
 
 
-class RedisDict(UserDict.DictMixin, PassThroughSerializer):
+class RedisDict(_DictMixin, PassThroughSerializer):
     "Dictionary interface to Redis database."
     def __init__(self, redis_client=redis_config.CLIENT):
         """
