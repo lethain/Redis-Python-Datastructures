@@ -59,7 +59,7 @@ class RedisDict(_DictMixin, PassThroughSerializer):
         return self.__getitem__(key) or default
 
     def __iter__(self):
-	"Return iterator over dictionary keys"
+        "Return iterator over dictionary keys"
         return iter(self.keys())
 
 
