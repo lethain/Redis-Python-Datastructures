@@ -10,6 +10,8 @@ try:
     import UserDict
 except ImportError:
     from collections import UserDict
+    from collections import MutableMapping as DictMixin
+    UserDict.DictMixin = DictMixin
 
 import redis_ds.redis_config as redis_config
 from redis_ds.serialization import PassThroughSerializer, PickleSerializer, JSONSerializer
