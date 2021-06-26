@@ -6,7 +6,11 @@ Note that this uses an entire Redis database to back the dictionary,
 not a Redis hashmap. If you prefer an interface to a hashmap, the
 ``redis_hash_dict`` file does just that.
 """
-import UserDict
+try:
+    import UserDict
+except ImportError:
+    from collections import UserDict
+
 import redis_ds.redis_config as redis_config
 from redis_ds.serialization import PassThroughSerializer, PickleSerializer, JSONSerializer
 
