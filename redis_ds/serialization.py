@@ -1,7 +1,9 @@
 "Mixins for serializing objects."
 import json
-import cPickle as pickle
-
+try:
+    import cPickle as pickle
+except ImportError:
+    import _pickle as pickle
 
 class PassThroughSerializer(object):
     "Don't serialize."
