@@ -48,6 +48,10 @@ class RedisHashDict(_DictMixin, PassThroughSerializer):
         "Retrieve a key's value or a default value if the key does not exist."
         return self.__getitem__(key) or default
 
+    def __iter__(self):
+        "Return iterator over dictionary keys"
+        return iter(self.keys())
+
 
 class PickleRedisHashDict(RedisHashDict, PickleSerializer):
     "Serialize hashmap values using pickle."

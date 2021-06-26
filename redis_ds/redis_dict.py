@@ -58,6 +58,10 @@ class RedisDict(_DictMixin, PassThroughSerializer):
         "Retrieve a key's value from the database falling back to a default."
         return self.__getitem__(key) or default
 
+    def __iter__(self):
+	"Return iterator over dictionary keys"
+        return iter(self.keys())
+
 
 class PickleRedisDict(RedisDict, PickleSerializer):
     "Serialize redis dictionary values via pickle."
