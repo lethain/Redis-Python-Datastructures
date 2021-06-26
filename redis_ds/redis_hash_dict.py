@@ -4,10 +4,15 @@ as if they were Python dictionaries.
 """
 import redis_ds.redis_config as redis_config
 from redis_ds.serialization import PassThroughSerializer, PickleSerializer, JSONSerializer
-import UserDict
+try:
+    import UserDict
+    _DictMixin = UserDict.DictMixin
+except ImportError:
+    from collections import UserDict
+    from collections import MutableMapping as DictMixin
+    _DictMixin = DictMixin
 
-
-class RedisHashDict(UserDict.DictMixin, PassThroughSerializer):
+class RedisHashDict(_DictMixin, PassThroughSerializer):
     "A dictionary interface to Redis hashmaps."
     def __init__(self, hash_key, redis_client=redis_config.CLIENT):
         "Initialize the redis hashmap dictionary interface."
